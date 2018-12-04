@@ -17,7 +17,11 @@
     $signedin = array_key_exists('signed_in', $_SESSION) ? $_SESSION['signed_in'] : FALSE;
 if(!$signedin)
 {
+<<<<<<< HEAD
     echo 'Sorry, you have to be <a class="item" href="/~tsnodderly/forum/login.php">logged in</a>.';
+=======
+    echo 'Sorry, you have to be <a href="/~tsnodderly/forum/login.php">logged in</a>.';
+>>>>>>> 24247576992bad64b0bdfe7433fefb69ed1cabd5
 }
 else
 {
