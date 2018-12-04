@@ -1,49 +1,88 @@
 <?php
 include 'connection.php';
 include 'header.php';
- 
-$tbl_name="posts"; // Table name 
- 
-// Get value of id that sent from hidden field 
-$id=$_POST['id'];
- 
-// Find highest answer number. 
-$sql="SELECT MAX(a_id) AS Maxa_id FROM $tbl_name WHERE id='$id'";
-$result=mysqli_query($mysqli, $sql);
-$rows=mysql_fetch_array($result);
- 
-// add + 1 to highest answer number and keep it in variable name "$Max_id". if there no answer yet set it = 1 
-if ($rows) {
-$Max_id = $rows['Maxa_id']+1;
+
+echo '<h3>Reply to a Topic</h3>'; 
+$id=$_GET['id'];
+$signedin = array_key_exists('signed_in', $_SESSION) ? $_SESSION['signed_in'] : FALSE;
+if(!$signedin)
+{
+    echo 'Sorry, you have to be <a href="/~tsnodderly/forum/login.php">logged in</a> to create a topic.';
 }
-else {
-$Max_id = 1;
+else
+{
+ 
+if($_SERVER['REQUEST_METHOD'] != 'POST') {
+
+         
+                echo '<form method="post" action="topicview.php" enctype="multipart/form-data">';
+
+                echo 'Message: <textarea name="content" /></textarea>
+                      <input type="file" name="pic" />
+                    <input id="submit" type="submit" value="Reply" name="submit" />
+                 </form>';
+
+                
+                
+            }
+
+    else
+    {
+        //start the transaction
+        $query  = "BEGIN WORK;";
+        $result = mysqli_query($mysqli, $query);
+         
+        if(!$result)
+        {
+            echo 'An error occured while creating your topic. Please try again later.';
+        }
+        else
+        {
+            $reply = $_POST["content"];
+            $username = $_SESSION["username"];
+            
+    $pic = $_FILES["pic"]; 
+
+    //Process the image that is uploaded by the user
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($pic["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+    if (move_uploaded_file($pic["tmp_name"], $target_file)) {
+        echo "The file ". basename( $pic["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+
+    $image = $target_dir.basename( $pic["name"]); // used to store the filename in a variable
+
+
+
+
+            
+            
+            $sql = "INSERT INTO topicreply (a_name, a_answer)
+                   values ($reply', '$username')";
+
+            $result = mysqli_query($mysqli, $sql);
+            if(!$result)
+            {
+                //something went wrong, display the error
+                echo 'An error occured while inserting your data. Please try again later.' . mysqli_error($mysqli);
+                $sql = "ROLLBACK;";
+                $result = mysqli_query($mysqli, $sql);
+            }
+            else
+                {
+                    $sql = "COMMIT;";
+                    $result = mysqli_query($mysqli, $sql);
+                    echo 'You have successfully replied.';
+                header("Location: topicview.php?id='.$id.'");
+
+                }
+            }
+    }
 }
- 
-// get values that sent from form 
-$a_name=$_POST['a_name'];
-$a_answer=$_POST['a_answer']; 
- 
-// Insert answer 
-$sql2="INSERT INTO $tbl_name(question_id, a_id, a_name, a_answer)VALUES('$id', '$Max_id', '$a_name', '$a_answer')";
-$result2=mysqli_query($mysqli, $sql2);
- 
-if($result2){
-echo "Successful<BR>";
-echo "<a href='viewtopic.php?id=".$id."'>View your answer</a>";
- 
-// If added new answer, add value +1 in reply column 
-$tbl_name2="topicreply";
-$sql3="UPDATE $tbl_name2 SET reply='$Max_id' WHERE id='$id'";
-$result3=mysqli_query($mysqli, $sql3);
-}
-else {
-echo "ERROR";
-}
- 
-// Close connection
-mysqli_close();
-?>
-<?php
 include 'footer.php';
 ?>

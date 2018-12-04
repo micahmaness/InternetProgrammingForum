@@ -4,6 +4,7 @@
 
 <head>
 
+
     <link rel="stylesheet" href="style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>The Forum</title>
@@ -50,9 +51,8 @@
     <h1>The Forum</h1>
     <div id="wrapper">
         <div id="menu">
-            <a class="item" href="/~tsnodderly/forum/home.php">Home</a>
+            <a class="item" href="/~tsnodderly/forum/home.php">Home</a><br>
             <a class="item" href="/~tsnodderly/forum/createtopic.php">Create A New Topic</a>
-            <a class="item" href="/~tsnodderly/forum/listtopics.php">Topics</a>
         </div>
 <div id="userbar">
 <?php
@@ -60,7 +60,7 @@
     if ($_SESSION){
     if($_SESSION['signed_in'])
     {
-        echo 'Hello ' . $_SESSION['username'] .'.<a href="signout.php">Sign out</a>';
+        echo 'Hello ' . $_SESSION['username'] .'<br><a class="item" href="signout.php">Sign out</a>';
     }
     }
     //else
