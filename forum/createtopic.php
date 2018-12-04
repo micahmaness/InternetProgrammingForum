@@ -21,9 +21,9 @@ else
 
          
                 echo '<form method="post" action="createtopic.php" enctype="multipart/form-data">
-                    Topic: <input id="submit" type="text" name="topicname" />';
+                    Topic: <input id="submit" type="text" name="topicname" /><br><br><br>';
 
-                echo 'Message: <textarea name="content" /></textarea>
+                echo 'Message: <textarea class="messageBox" name="content" /></textarea><br><br><br>
                       <input type="file" name="pic" />
                     <input id="submit" type="submit" value="Create topic" name="submit" />
                  </form>';

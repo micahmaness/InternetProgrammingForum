@@ -17,7 +17,7 @@
     $signedin = array_key_exists('signed_in', $_SESSION) ? $_SESSION['signed_in'] : FALSE;
 if(!$signedin)
 {
-    echo 'Sorry, you have to be <a href="/~tsnodderly/forum/login.php">logged in</a> to create a topic.';
+    echo 'Sorry, you have to be <a class="item" href="/~tsnodderly/forum/login.php">logged in</a>.';
 }
 else
 {
@@ -37,7 +37,7 @@ $sql = "SELECT id, topicname, content, author FROM posts";
             else
             {
                 //prepare the table
-                echo '<table border="1">
+                echo '<table align="center" border="1">
                       <tr>
                         <th>Topic</th>
                         <th>Author</th>
@@ -46,7 +46,7 @@ $sql = "SELECT id, topicname, content, author FROM posts";
                 {               
                     echo '<tr>';
                         echo '<td class="leftpart">';
-                            echo '<h3><a href="topicview.php?id=' . $row['id'] . '">' . $row['topicname'] . '</a><h3>';
+                            echo '<h3><a href="topicview.php?id=' . $row['id'] . '">' . $row['topicname'] . '</a></h3>';
                         echo '</td>';
                         echo '<td class="rightpart">'.$row['author'].'</td>';
 
@@ -55,6 +55,7 @@ $sql = "SELECT id, topicname, content, author FROM posts";
             }
         }   
 }
+    
 ?>
     </div>
 <!--
@@ -69,3 +70,7 @@ $sql = "SELECT id, topicname, content, author FROM posts";
     </div>
 -->
 </body>
+
+<?php
+include"footer.php";
+?>

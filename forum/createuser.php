@@ -22,6 +22,8 @@ echo '<h3>Create A User</h3>';
         //start the transaction
         $query  = "BEGIN WORK;";
         $result = mysqli_query($mysqli, $query);
+        
+        
          
         if(!$result)
         {
@@ -32,10 +34,16 @@ echo '<h3>Create A User</h3>';
             $username = $_POST["username"];
             $password = $_POST["password"];
             
+            if ($username == "") {
+                echo "The Username field is empty!";
+            
+            } else if ($password == "") {
+                echo "The Password field is empty!";
+            } else {
             $sql = "INSERT INTO Login (username, password)
                    values ('$username', '$password')";
             $result = mysqli_query($mysqli, $sql);
- 
+            }
             if(!$result)
             {
                 //something went wrong, display the error
@@ -43,7 +51,9 @@ echo '<h3>Create A User</h3>';
                 $sql = "ROLLBACK;";
                 $result = mysqli_query($mysqli, $sql);
             }
-            else
+            else if ($result == "") {
+                echo 'You need to fill out the correct fields.';
+            } else {
 
                     $sql = "COMMIT;";
                     $result = mysqli_query($mysqli, $sql);
@@ -51,6 +61,7 @@ echo '<h3>Create A User</h3>';
 
                 }
             }
+    }
 
 
  
