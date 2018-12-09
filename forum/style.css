@@ -8,7 +8,6 @@ body {
     text-align: center;
 }
 
-<<<<<<< HEAD
 
 a {
     color: black;
@@ -41,40 +40,6 @@ th {
     font-weight: bold;
 }
 
-=======
-
-a {
-    color: black;
-    text-decoration: underline;
-}
-
-a.item {
-    color: white;
-}
-
-
-table { 
-    text-align: center;
-    align-content: center;
-    color: #333;
-    font-family: Helvetica, Arial, sans-serif;
-    width: 640px; 
-    border-collapse: 
-    collapse; border-spacing: 0;
-}
-
-td, th {  
-    border: 1px solid transparent; /* No more visible border */
-    height: 30px; 
-    transition: all 0.3s;  /* Simple transition for hover effect */
-}
-
-th {  
-    background: #DFDFDF;  /* Darken header a bit */
-    font-weight: bold;
-}
-
->>>>>>> 24247576992bad64b0bdfe7433fefb69ed1cabd5
 td {  
     background: #FAFAFA;
     text-align: center;
@@ -93,22 +58,7 @@ table.topicviewtable {
     align-content: center;
 }
 
-<<<<<<< HEAD
 .messageBox {
     width: 500px;
     height: 100px;
 }
-=======
-h3 {
-    font color: black;
-}
-div.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
-}
->>>>>>> 24247576992bad64b0bdfe7433fefb69ed1cabd5

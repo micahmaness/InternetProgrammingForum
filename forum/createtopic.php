@@ -1,10 +1,3 @@
-<!--
-<form method="post" action="">
-    Topic name: <input type="text" name="topicname" />
-    <input type="submit" value="Add Topic" />
-</form>
--->
-
 <?php
 include 'connection.php';
 include 'header.php';
@@ -34,6 +27,9 @@ else
 
     else
     {
+        if (empty($_POST['topicname'])) {
+            echo 'The topic name field is empty. Please enter a topic name.';
+        } else {
         //start the transaction
         $query  = "BEGIN WORK;";
         $result = mysqli_query($mysqli, $query);
@@ -88,13 +84,13 @@ else
                 {
                     $sql = "COMMIT;";
                     $result = mysqli_query($mysqli, $sql);
-                    echo 'You have successfully created <a href="topicview.php?id=' . $topicname . '">' . $topicname . '</a>.';
+                    header("Location: home.php");
                     // TS changed ->
                     /*echo 'You have successfully created <a href="topicview.php?id='. $topicid . '">your new topic</a>.';*/
                 }
             }
     }
-}
+}}
  
 include 'footer.php';
 ?>

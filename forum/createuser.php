@@ -5,6 +5,8 @@ include 'header.php';
 echo '<h3>Create A User</h3>'; 
 
     if($_SERVER['REQUEST_METHOD'] != 'POST') {
+        
+        
 
          
                 echo '<form method="post" action="">
@@ -18,7 +20,16 @@ echo '<h3>Create A User</h3>';
     else
     {
         
-        
+        $sql2 = 'SELECT * FROM Login WHERE username = "'.$_POST['username'].'"';
+        $res = mysqli_query($mysqli, $sql2);
+        if ($res && mysqli_num_rows($res) > 0) {
+            echo 'Username is already Taken';
+        }
+         else if (empty($_POST['username'])) {
+             echo 'The username cannot be empty.';
+         } else if (empty($_POST['password'])){
+             echo 'The password cannot be empty.';
+         } else {
         //start the transaction
         $query  = "BEGIN WORK;";
         $result = mysqli_query($mysqli, $query);
@@ -34,12 +45,7 @@ echo '<h3>Create A User</h3>';
             $username = $_POST["username"];
             $password = $_POST["password"];
             
-            if ($username == "") {
-                echo "The Username field is empty!";
             
-            } else if ($password == "") {
-                echo "The Password field is empty!";
-            } else {
             $sql = "INSERT INTO Login (username, password)
                    values ('$username', '$password')";
             $result = mysqli_query($mysqli, $sql);
@@ -57,7 +63,7 @@ echo '<h3>Create A User</h3>';
 
                     $sql = "COMMIT;";
                     $result = mysqli_query($mysqli, $sql);
-                    echo 'You have successfully created a new user. Please sign in <a href="/~tsnodderly/forum/login.php">here</a> to access the forum.';
+                    echo 'You have successfully created a new user. Please sign in <a class="item" href="/~tsnodderly/forum/login.php">here</a> to access the forum.';
 
                 }
             }

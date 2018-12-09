@@ -60,7 +60,7 @@
     if ($_SESSION){
     if($_SESSION['signed_in'])
     {
-        echo 'Hello ' . $_SESSION['username'] .'<br><a class="item" href="signout.php">Sign out</a>';
+        echo 'Hello ' . $_SESSION['username'] .'<br><a class="item" href="signout.php">Sign out</a><br>';
     }
     }
     //else
